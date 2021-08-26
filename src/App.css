@@ -1,38 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
 }
 
-.App-link {
-  color: #61dafb;
+#appTitle {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
+.calculatorContainer {
+  height: 50%;
+  width: 75%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr .2fr;
+  grid-template-areas: 'mainLeft mainRight'
+                        'attribution attribution';
+}
+
+
+/* ============= LEFT SIDE STYLING ========== */
+.mainLeft {
+  grid-area: mainLeft;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border: solid 1px;
+}
+
+.totalBillContainer, .numOfPeopleContainer {
+  display: flex;
+  flex-direction: column;
+  border: solid 1px;
+}
+
+input {
+  direction: rtl;
+}
+
+.selectTipContainer {
+  height: 50%;
+  border: solid 1px;
+}
+
+.buttonsTable {
+  width: 100%;
+  height: 100%;
+
+}
+
+td {
+  width: 33%;
+
+
+}
+
+.selectTipTitle {
+  grid-area: selectTipTitle;
+}
+
+.percentButton, .customButton {
+  margin: .5em;
+  width: 100%;
+  height: 50%;
+}
+
+
+
+
+
+
+
+/* ================== RIGHT SIDE STYLING ============== */
+
+.mainRight {
+  grid-area: mainRight;
+  position: relative;
+  border: solid 1px
+}
+
+.attribution {
+  grid-area: attribution;
+}
+
+
+
+.grandTotalContainer {
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  border: solid 1px;
+}
+
+.totalsContainer {
+  margin: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+#totalsLabel {
+  display: flex;
+  flex-direction: column;
+}
+
+.resetButton {
+  position: absolute;
+  width: 90%;
+  left: 5%;
+  right: 5%;
+  bottom: 8%;
+}
+
+@media only screen and (max-width: 500px) {
+  .calculatorContainer {
+    height: 80%;
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr .2fr;
+    grid-template-areas: 'mainLeft'
+                        'mainRight'
+                        'attribution';
   }
 }
