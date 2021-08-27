@@ -6,14 +6,16 @@ function App() {
 
   const billRef = useRef()
   const pplRef = useRef()
+  const customRef = useRef()
 
-
-  const [totalBill, setTotalBill] = useState(0)
+  const [totalBill, setTotalBill] = useState(null)
   const [totalPeople, setTotalPeople] = useState(1)
-  const [tip, setTip] = useState(0)
-  const [total, setTotal] = useState(0)
+  const [tip, setTip] = useState(null)
+  const [total, setTotal] = useState(null)
   const [tipEach, setTipEach] = useState(0)
   const [totalEach, setTotalEach] = useState(0)
+  const [customTip, setCustomTip] = useState(null)
+  const [show, setShow] = useState(false)
 
 
   const calcTip = (percent) => {
@@ -25,17 +27,30 @@ function App() {
     setTotalEach(tempTotal / totalPeople)
   }
 
+
+
+  const handleCustomTip =(e)=> {
+      e.preventDefault()
+      const percent = customTip * .01
+      calcTip(percent)
+      setShow(false)
+  }
+
   const reset = () => {
     billRef.current.value = ''
     pplRef.current.value = ''
+    customRef.current.value = ''
     setTotalBill(0)
     setTotalPeople(1)
     setTip(0)
     setTotal(0)
+    setCustomTip(null)
     setTipEach(0)
     setTotalEach(0)
   }
 
+
+  const toggleModal =  show ? 'show' : 'hide'
   console.log(totalBill)
   console.log(totalPeople)
   console.log(`Tip: ${tip}, Total with tip: ${total}`)
@@ -72,11 +87,30 @@ function App() {
               <tr>
                 <td><button onClick={()=> calcTip(.25)} className='percentButton'>25%</button></td>
                 <td><button onClick={()=> calcTip(.50)} className='percentButton'>50%</button></td>
-                <td><button onClick={()=> console.log('clicked')} className='customButton'>Custom</button></td>
+                <td><button onClick={()=> {
+                                            setShow(true)
+
+                                          }} className='customButton'>Custom</button></td>
               </tr>
             </tbody>
           </table>
-
+          <div className={toggleModal}>
+            <form onSubmit={handleCustomTip} className='customTipForm'>
+              <label>Custom Tip %</label>
+              <input  ref={customRef}
+                      type='number'
+                      min='1'
+                      max='99'
+                      placeholder='00%'
+                      value={customTip}
+                      onChange={(e)=> {
+                                      e.preventDefault()
+                                      setCustomTip(e.target.value)
+                                      }}></input>
+              <button type='submit'>SUBMIT</button>
+              <button className='xButton' onClick={()=> setShow(false)}>X</button>
+            </form>
+          </div>
         </div>
 
 
@@ -97,6 +131,7 @@ function App() {
           Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
       </div>
     </main>
+
     </div>
   );
 }

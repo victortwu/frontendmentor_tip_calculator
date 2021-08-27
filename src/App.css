@@ -49,6 +49,7 @@ input {
 }
 
 .selectTipContainer {
+  position: relative;
   height: 50%;
   border: solid 1px;
 }
@@ -75,9 +76,25 @@ td {
   height: 50%;
 }
 
+.customTipForm {
+  background: blue;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
 
+.show {
+  display: block;
+}
 
-
+.hide {
+  display: none;
+}
 
 
 
