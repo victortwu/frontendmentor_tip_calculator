@@ -1,8 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import GrandTotal from './components/GrandTotal'
 import './App.css';
 
 function App() {
+
+  const billRef = useRef()
+  const pplRef = useRef()
+
 
   const [totalBill, setTotalBill] = useState(0)
   const [totalPeople, setTotalPeople] = useState(1)
@@ -22,6 +26,8 @@ function App() {
   }
 
   const reset = () => {
+    billRef.current.value = ''
+    pplRef.current.value = ''
     setTotalBill(0)
     setTotalPeople(1)
     setTip(0)
@@ -47,11 +53,11 @@ function App() {
       <div className='mainLeft'>
 
         <div className='totalBillContainer'>
-          <label>Bill</label>
-          <input onChange={(e)=> {
+          <label htmlFor='bill'>Bill</label>
+          <input ref={billRef} onChange={(e)=> {
                                   e.preventDefault()
                                   setTotalBill(e.target.value)
-                                  }} type='number' placeholder='0'></input>
+                                }} id='bill' type='number' placeholder='0' autoFocus></input>
         </div>
 
         <div className='selectTipContainer'>
@@ -75,11 +81,11 @@ function App() {
 
 
         <div className='numOfPeopleContainer'>
-          <label>Number of People</label>
-          <input onChange={(e)=> {
+          <label htmlFor='numPpl'>Number of People</label>
+          <input ref={pplRef} onChange={(e)=> {
                                   e.preventDefault()
                                   setTotalPeople(e.target.value)
-                                  }} type='number' placeholder='0'></input>
+                                }} id='numPpl' type='number' min='1' max='25' placeholder='0'></input>
         </div>
 
       </div>
