@@ -1,5 +1,7 @@
-const GrandTotal = () => {
-  return(
+const GrandTotal = (props) => {
+
+return(
+
     <div className='grandTotalContainer'>
         <div className='totalsContainer'>
             <div id='totalsLabel'>
@@ -7,7 +9,7 @@ const GrandTotal = () => {
               <span>/ person</span>
             </div>
             <div>
-              <h2>$0.00</h2>
+              <h2>${props.tipEach.toFixed(2)}</h2>
             </div>
         </div>
         <div className='totalsContainer'>
@@ -16,11 +18,12 @@ const GrandTotal = () => {
               <span>/ person</span>
             </div>
             <div>
-              <h2>$0.00</h2>
+              <h2>${props.totalEach.toFixed(2)}</h2>
             </div>
         </div>
-      <button className='resetButton'>RESET</button>
+      <button onClick={()=> props.reset()} className='resetButton'>RESET</button>
     </div>
+
   )
 }
 
