@@ -14,7 +14,7 @@ function App() {
   const [totalPeople, setTotalPeople] = useState(1)
   const [tipEach, setTipEach] = useState(0)
   const [totalEach, setTotalEach] = useState(0)
-  const [customTip, setCustomTip] = useState(null)
+  const [customTip, setCustomTip] = useState('')
 
   const [show, setShow] = useState(false)
   const [zero, setZero] = useState(false)
@@ -41,7 +41,7 @@ function App() {
         customRef.current.value = ''
         setTotalBill(0)
         setTotalPeople(1)
-        setCustomTip(null)
+        setCustomTip('')
         setTipEach(0)
         setTotalEach(0)
         setZero(false)
@@ -141,7 +141,7 @@ return (
         </main>
 
         <div className='attribution'>
-            Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+            Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>.
             Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
         </div>
 
