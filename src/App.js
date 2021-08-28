@@ -10,7 +10,7 @@ function App() {
   const pplRef = useRef()
   const customRef = useRef()
 
-  const [totalBill, setTotalBill] = useState(null)
+  const [totalBill, setTotalBill] = useState(0)
   const [totalPeople, setTotalPeople] = useState(1)
   const [percent, setPercent] = useState(null)
   const [tip, setTip] = useState(null)
@@ -20,7 +20,9 @@ function App() {
   const [customTip, setCustomTip] = useState(null)
   const [show, setShow] = useState(false)
   const [zero, setZero] = useState(false)
+  const [zeroBill, setZeroBill] = useState(true)
 
+  
 
   const calcTip = (pct) => {
 
@@ -82,6 +84,7 @@ function App() {
               <input ref={billRef} onChange={(e)=> {
                                       e.preventDefault()
                                       setTotalBill(e.target.value)
+                                      setZeroBill(false)
                                     }} id='bill' type='number' placeholder='0' autoFocus></input>
               <div className='iconDiv'>
                 <DollarIcon/>
@@ -100,20 +103,20 @@ function App() {
 
                     <div className={toggleModal}>
                       <form onSubmit={handleCustomTip} className='customTipForm'>
-                      <button className='customSubmitButton' type='submit'>Submit Custom %</button>
-                      <button className='xButton' onClick={()=> setShow(false)}>X</button>
+                        <button className='customSubmitButton' type='submit'>Submit Custom %</button>
+                        <button className='xButton' onClick={()=> setShow(false)}>X</button>
 
-                        <input  ref={customRef}
-                                type='number'
-                                min='1'
-                                max='99'
-                                placeholder='00%'
-                                value={customTip}
-                                autoFocus
-                                onChange={(e)=> {
-                                                e.preventDefault()
-                                                setCustomTip(e.target.value)
-                                                }}></input>
+                          <input  ref={customRef}
+                                  type='number'
+                                  min='1'
+                                  max='99'
+                                  placeholder='00%'
+                                  value={customTip}
+                                  autoFocus
+                                  onChange={(e)=> {
+                                                  e.preventDefault()
+                                                  setCustomTip(e.target.value)
+                                                  }}></input>
 
                       </form>
                     </div>
@@ -142,7 +145,15 @@ function App() {
           </div>
 
           <div className='mainRight'>
-            <GrandTotal tipEach={tipEach} totalEach={totalEach} reset={reset}/>
+            <GrandTotal
+                zeroBill={zeroBill}
+                totalPeople={totalPeople}
+                totalBill={totalBill}
+                tip={tip}
+                zero={zero}
+                tipEach={tipEach}
+                totalEach={totalEach}
+                reset={reset}/>
           </div>
 
         </main>
@@ -157,37 +168,3 @@ function App() {
 }
 
 export default App;
-// <table className='buttonsTable'>
-//   <tbody>
-//     <tr>
-//       <td><button id='1' onClick={()=> calcTip(.05)} className='percentButton'>5%</button></td>
-//       <td><button id='2' onClick={()=> calcTip(.10)} className='percentButton'>10%</button></td>
-//       <td><button id='3' onClick={()=> calcTip(.15)} className='percentButton'>15%</button></td>
-//     </tr>
-//     <tr>
-//       <td><button id='4' onClick={()=> calcTip(.25)} className='percentButton'>25%</button></td>
-//       <td><button id='5' onClick={()=> calcTip(.50)} className='percentButton'>50%</button></td>
-//       <td><button id='6' onClick={()=> {
-//                                   setShow(true)
-//
-//                                 }} className='customButton'>Custom</button></td>
-//     </tr>
-//   </tbody>
-// </table>
-// <div className={toggleModal}>
-//   <form onSubmit={handleCustomTip} className='customTipForm'>
-//     <label>Custom Tip %</label>
-//     <input  ref={customRef}
-//             type='number'
-//             min='1'
-//             max='99'
-//             placeholder='00%'
-//             value={customTip}
-//             onChange={(e)=> {
-//                             e.preventDefault()
-//                             setCustomTip(e.target.value)
-//                             }}></input>
-//     <button type='submit'>SUBMIT</button>
-//     <button className='xButton' onClick={()=> setShow(false)}>X</button>
-//   </form>
-// </div>
