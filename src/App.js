@@ -77,40 +77,35 @@ function App() {
 
         <div className='selectTipContainer'>
           <span className='selectTipTitle'>Select Tip %</span>
-          <table className='buttonsTable'>
-            <tbody>
-              <tr>
-                <td><button onClick={()=> calcTip(.05)} className='percentButton'>5%</button></td>
-                <td><button onClick={()=> calcTip(.10)} className='percentButton'>10%</button></td>
-                <td><button onClick={()=> calcTip(.15)} className='percentButton'>15%</button></td>
-              </tr>
-              <tr>
-                <td><button onClick={()=> calcTip(.25)} className='percentButton'>25%</button></td>
-                <td><button onClick={()=> calcTip(.50)} className='percentButton'>50%</button></td>
-                <td><button onClick={()=> {
-                                            setShow(true)
+          <div className='percentButtonGrid'>
+                <button onClick={()=> calcTip(.05)} className='percentButton1'>5%</button>
+                <button onClick={()=> calcTip(.10)} className='percentButton2'>10%</button>
+                <button onClick={()=> calcTip(.15)} className='percentButton3'>15%</button>
+                <button onClick={()=> calcTip(.25)} className='percentButton4'>25%</button>
+                <button onClick={()=> calcTip(.50)} className='percentButton5'>50%</button>
+                <div onClick={()=> {setShow(true)}} className='customButton'>Custom</div>
 
-                                          }} className='customButton'>Custom</button></td>
-              </tr>
-            </tbody>
-          </table>
-          <div className={toggleModal}>
-            <form onSubmit={handleCustomTip} className='customTipForm'>
-              <label>Custom Tip %</label>
-              <input  ref={customRef}
-                      type='number'
-                      min='1'
-                      max='99'
-                      placeholder='00%'
-                      value={customTip}
-                      onChange={(e)=> {
-                                      e.preventDefault()
-                                      setCustomTip(e.target.value)
-                                      }}></input>
-              <button type='submit'>SUBMIT</button>
-              <button className='xButton' onClick={()=> setShow(false)}>X</button>
-            </form>
+                <div className={toggleModal}>
+                  <form onSubmit={handleCustomTip} className='customTipForm'>
+                  <button className='customSubmitButton' type='submit'>Submit Custom %</button>
+                  <button className='xButton' onClick={()=> setShow(false)}>X</button>
+
+                    <input  ref={customRef}
+                            type='number'
+                            min='1'
+                            max='99'
+                            placeholder='00%'
+                            value={customTip}
+                            autoFocus
+                            onChange={(e)=> {
+                                            e.preventDefault()
+                                            setCustomTip(e.target.value)
+                                            }}></input>
+
+                  </form>
+                </div>
           </div>
+
         </div>
 
 
@@ -126,14 +121,48 @@ function App() {
       <div className='mainRight'>
         <GrandTotal tipEach={tipEach} totalEach={totalEach} reset={reset}/>
       </div>
-      <div className="attribution">
-          Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-          Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
-      </div>
-    </main>
 
+    </main>
+    <div className="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+        Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
+    </div>
     </div>
   );
 }
 
 export default App;
+// <table className='buttonsTable'>
+//   <tbody>
+//     <tr>
+//       <td><button id='1' onClick={()=> calcTip(.05)} className='percentButton'>5%</button></td>
+//       <td><button id='2' onClick={()=> calcTip(.10)} className='percentButton'>10%</button></td>
+//       <td><button id='3' onClick={()=> calcTip(.15)} className='percentButton'>15%</button></td>
+//     </tr>
+//     <tr>
+//       <td><button id='4' onClick={()=> calcTip(.25)} className='percentButton'>25%</button></td>
+//       <td><button id='5' onClick={()=> calcTip(.50)} className='percentButton'>50%</button></td>
+//       <td><button id='6' onClick={()=> {
+//                                   setShow(true)
+//
+//                                 }} className='customButton'>Custom</button></td>
+//     </tr>
+//   </tbody>
+// </table>
+// <div className={toggleModal}>
+//   <form onSubmit={handleCustomTip} className='customTipForm'>
+//     <label>Custom Tip %</label>
+//     <input  ref={customRef}
+//             type='number'
+//             min='1'
+//             max='99'
+//             placeholder='00%'
+//             value={customTip}
+//             onChange={(e)=> {
+//                             e.preventDefault()
+//                             setCustomTip(e.target.value)
+//                             }}></input>
+//     <button type='submit'>SUBMIT</button>
+//     <button className='xButton' onClick={()=> setShow(false)}>X</button>
+//   </form>
+// </div>

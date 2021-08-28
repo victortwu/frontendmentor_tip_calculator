@@ -21,7 +21,7 @@ return(
               <h2>${props.totalEach.toFixed(2)}</h2>
             </div>
         </div>
-      <button onClick={()=> props.reset()} className='resetButton'>RESET</button>
+      <div onClick={()=> props.reset()} className='resetButton'>RESET</div>
     </div>
 
   )

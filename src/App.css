@@ -1,10 +1,26 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
+:root {
+  --deepGreen: #05484e;
+  --powderBlueGreen: #c3e3e3;
+  --aquaGreen: #2cbeab;
+  --superLightGray: #f3f8fb;
+  --lightOliveFont: #758f90;
+  --darkGrayFont: #646c6e;
+  --mediumGray: #96a1a2;
+  --darkOlive: #64746c;
+  --mediumOlive: #94aca4;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Space Mono', monospace;
 }
 
 .App {
+  background-color: var(--powderBlueGreen);
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -15,17 +31,23 @@
 #appTitle {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2rem;
+  color: var(--deepGreen);
+  margin-bottom: 4rem;
+}
+
+#appTitle > span {
+  letter-spacing: .2rem;
 }
 
 .calculatorContainer {
-  height: 50%;
+  background-color: white;
+  height: 45%;
   width: 75%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr .2fr;
-  grid-template-areas: 'mainLeft mainRight'
-                        'attribution attribution';
+  grid-template-rows: 1fr;
+  grid-template-areas: 'mainLeft mainRight';
+  border-radius: 1rem;
 }
 
 
@@ -35,49 +57,80 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  border: solid 1px;
+  color: var(--lightOliveFont);
+  font-size: .8rem;
 }
 
 .totalBillContainer, .numOfPeopleContainer {
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-  border: solid 1px;
+
 }
 
 input {
+  background-color: var(--superLightGray);
+  padding: .5rem;
   direction: rtl;
+  height: 2.5rem;
+  border: none;
+  border-radius: .3rem;
 }
 
 .selectTipContainer {
+  margin: 1rem;
+  height: 30%;
+}
+
+.percentButtonGrid {
   position: relative;
-  height: 50%;
-  border: solid 1px;
-}
-
-.buttonsTable {
-  width: 100%;
   height: 100%;
-
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'percentButton1 percentButton2 percentButton3'
+                      'percentButton4 percentButton5 customButton';
+  grid-gap: .5rem;
 }
 
-td {
-  width: 33%;
-
-
+.percentButtonGrid > button {
+  background-color: var(--deepGreen);
+  color: white;
+  border: none;
+  border-radius: .2rem;
 }
 
-.selectTipTitle {
-  grid-area: selectTipTitle;
+.percentButton1 {
+  grid-area: percentButton1;
+}
+.percentButton2 {
+  grid-area: percentButton2;
+}
+.percentButton3 {
+  grid-area: percentButton3;
+}
+.percentButton4 {
+  grid-area: percentButton4;
+}
+.percentButton5 {
+  grid-area: percentButton5;
 }
 
-.percentButton, .customButton {
-  margin: .5em;
-  width: 100%;
-  height: 50%;
+.customButton {
+  grid-area: customButton;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--superLightGray);
+  border-radius: .2rem;
+  font-size: 1rem;
 }
+
 
 .customTipForm {
-  background: blue;
+  background: rgba(255,255,255,.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -86,6 +139,40 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  animation: fadeIn 500ms;
+}
+
+.customTipForm > input {
+  position: absolute;
+  height: 40%;
+  width: 33%;
+  right: 0;
+  bottom: 1rem;
+  box-shadow: 0 0 .2rem gray;
+}
+
+.customSubmitButton {
+  position: absolute;
+  background-color: var(--deepGreen);
+  height: 40%;
+  width: 33%;
+  top: .5rem;
+  right: 0;
+  border: none;
+  color: white;
+  border-radius: .2rem;
+}
+
+.xButton {
+  position: absolute;
+  right: 47%;
+  border-radius: 50%;
+  height: 1.5rem;
+  width: 1.5rem;
+  border: none;
+  color: var(--lightOliveFont);
+  box-shadow: 0 0 1rem;
+
 }
 
 .show {
@@ -103,28 +190,28 @@ td {
 .mainRight {
   grid-area: mainRight;
   position: relative;
-  border: solid 1px
+
 }
-
-.attribution {
-  grid-area: attribution;
-}
-
-
 
 .grandTotalContainer {
+  background-color: var(--deepGreen);
   position: absolute;
   top: 5%;
   left: 5%;
   right: 5%;
   bottom: 5%;
-  border: solid 1px;
+  border-radius: 1rem;
 }
 
 .totalsContainer {
-  margin: 1em;
+  margin: 2rem;
   display: flex;
   justify-content: space-between;
+}
+
+.totalsContainer > div > h2 {
+  color: var(--aquaGreen);
+  font-size: 2rem;
 }
 
 #totalsLabel {
@@ -132,13 +219,46 @@ td {
   flex-direction: column;
 }
 
+#totalsLabel > h4 {
+  font-size: .8rem;
+  color: var(--superLightGray)
+}
+
+#totalsLabel > span {
+  font-size: .6rem;
+  color: var(--lightOliveFont)
+}
+
 .resetButton {
+  background-color: var(--lightOliveFont);
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2.5rem;
   width: 90%;
   left: 5%;
   right: 5%;
   bottom: 8%;
+  color: var(--deepGreen);
+  border-radius: .3rem;
 }
+
+.attribution {
+  color: var(--lightOliveFont);
+  font-size: .8rem;
+}
+
+.attribution > a {
+  color: var(--darkGrayFont)
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0};
+  100% {opacity: 1}
+}
+
+
 
 @media only screen and (max-width: 500px) {
   .calculatorContainer {
@@ -150,4 +270,17 @@ td {
                         'mainRight'
                         'attribution';
   }
+
+  .percentButtonGrid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 'percentButton1 percentButton2'
+                          'percentButton3 percentButton4'
+                          'percentButton5 customButton';
+  }
+
+  .selectTipContainer {
+    height: 60%;
+  }
+
 }
