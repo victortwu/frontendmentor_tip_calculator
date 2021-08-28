@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react'
+import { ReactComponent as DollarIcon } from './images/icon-dollar.svg'
+import { ReactComponent as PersonIcon } from './images/icon-person.svg'
 import GrandTotal from './components/GrandTotal'
 import './App.css';
 
@@ -10,6 +12,7 @@ function App() {
 
   const [totalBill, setTotalBill] = useState(null)
   const [totalPeople, setTotalPeople] = useState(1)
+  const [percent, setPercent] = useState(null)
   const [tip, setTip] = useState(null)
   const [total, setTotal] = useState(null)
   const [tipEach, setTipEach] = useState(0)
@@ -18,9 +21,12 @@ function App() {
   const [show, setShow] = useState(false)
 
 
-  const calcTip = (percent) => {
-    const tempTip = totalBill * percent
-    const tempTotal = totalBill * (1  + percent)
+  const calcTip = (pct) => {
+
+    const tempTip = totalBill * pct
+    const tempTotal = totalBill * (1  + pct)
+    console.log('tempTip: ', tempTip)
+    console.log('tempTotal: ', tempTotal)
     setTip(tempTip)
     setTotal(tempTotal)
     setTipEach(tempTip / totalPeople)
@@ -59,74 +65,83 @@ function App() {
   return (
     <div className="App">
 
-    <div id='appTitle'>
-      <span>SPLI</span>
-      <span>TTER</span>
-    </div>
-
-    <main className='calculatorContainer'>
-      <div className='mainLeft'>
-
-        <div className='totalBillContainer'>
-          <label htmlFor='bill'>Bill</label>
-          <input ref={billRef} onChange={(e)=> {
-                                  e.preventDefault()
-                                  setTotalBill(e.target.value)
-                                }} id='bill' type='number' placeholder='0' autoFocus></input>
+        <div id='appTitle'>
+          <span>SPLI</span>
+          <span>TTER</span>
         </div>
 
-        <div className='selectTipContainer'>
-          <span className='selectTipTitle'>Select Tip %</span>
-          <div className='percentButtonGrid'>
-                <button onClick={()=> calcTip(.05)} className='percentButton1'>5%</button>
-                <button onClick={()=> calcTip(.10)} className='percentButton2'>10%</button>
-                <button onClick={()=> calcTip(.15)} className='percentButton3'>15%</button>
-                <button onClick={()=> calcTip(.25)} className='percentButton4'>25%</button>
-                <button onClick={()=> calcTip(.50)} className='percentButton5'>50%</button>
-                <div onClick={()=> {setShow(true)}} className='customButton'>Custom</div>
+        <main className='calculatorContainer'>
+          <div className='mainLeft'>
 
-                <div className={toggleModal}>
-                  <form onSubmit={handleCustomTip} className='customTipForm'>
-                  <button className='customSubmitButton' type='submit'>Submit Custom %</button>
-                  <button className='xButton' onClick={()=> setShow(false)}>X</button>
+            <div className='totalBillContainer'>
+              <label htmlFor='bill'>Bill</label>
+              <input ref={billRef} onChange={(e)=> {
+                                      e.preventDefault()
+                                      setTotalBill(e.target.value)
+                                    }} id='bill' type='number' placeholder='0' autoFocus></input>
+              <div className='iconDiv'>
+                <DollarIcon/>
+              </div>
+            </div>
 
-                    <input  ref={customRef}
-                            type='number'
-                            min='1'
-                            max='99'
-                            placeholder='00%'
-                            value={customTip}
-                            autoFocus
-                            onChange={(e)=> {
-                                            e.preventDefault()
-                                            setCustomTip(e.target.value)
-                                            }}></input>
+            <div className='selectTipContainer'>
+              <span className='selectTipTitle'>Select Tip %</span>
+              <div className='percentButtonGrid'>
+                    <button onClick={()=> calcTip(.05)} className='percentButton1'>5%</button>
+                    <button onClick={()=> calcTip(.10)} className='percentButton2'>10%</button>
+                    <button onClick={()=> calcTip(.15)} className='percentButton3'>15%</button>
+                    <button onClick={()=> calcTip(.25)} className='percentButton4'>25%</button>
+                    <button onClick={()=> calcTip(.50)} className='percentButton5'>50%</button>
+                    <div onClick={()=> {setShow(true)}} className='customButton'>Custom</div>
 
-                  </form>
-                </div>
+                    <div className={toggleModal}>
+                      <form onSubmit={handleCustomTip} className='customTipForm'>
+                      <button className='customSubmitButton' type='submit'>Submit Custom %</button>
+                      <button className='xButton' onClick={()=> setShow(false)}>X</button>
+
+                        <input  ref={customRef}
+                                type='number'
+                                min='1'
+                                max='99'
+                                placeholder='00%'
+                                value={customTip}
+                                autoFocus
+                                onChange={(e)=> {
+                                                e.preventDefault()
+                                                setCustomTip(e.target.value)
+                                                }}></input>
+
+                      </form>
+                    </div>
+              </div>
+
+            </div>
+
+
+            <div className='numOfPeopleContainer'>
+              <label htmlFor='numPpl'>Number of People</label>
+              <input ref={pplRef} onChange={(e)=> {
+                                      e.preventDefault()
+                                      setTotalPeople(e.target.value)
+                                    }} id='numPpl' type='number' min='1' max='25' placeholder='0'></input>
+              <div className='iconDiv'>
+                  <PersonIcon/>
+              </div>
+            </div>
+
           </div>
 
+          <div className='mainRight'>
+            <GrandTotal tipEach={tipEach} totalEach={totalEach} reset={reset}/>
+          </div>
+
+        </main>
+
+        <div className="attribution">
+            Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+            Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
         </div>
 
-
-        <div className='numOfPeopleContainer'>
-          <label htmlFor='numPpl'>Number of People</label>
-          <input ref={pplRef} onChange={(e)=> {
-                                  e.preventDefault()
-                                  setTotalPeople(e.target.value)
-                                }} id='numPpl' type='number' min='1' max='25' placeholder='0'></input>
-        </div>
-
-      </div>
-      <div className='mainRight'>
-        <GrandTotal tipEach={tipEach} totalEach={totalEach} reset={reset}/>
-      </div>
-
-    </main>
-    <div className="attribution">
-        Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
-        Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
-    </div>
     </div>
   );
 }

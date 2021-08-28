@@ -1,22 +1,25 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@700&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono&display=swap');
 :root {
-  --deepGreen: #05484e;
+  --deepGreen: #00474b;
+  --lightDeepGreen: #0d686d;
   --powderBlueGreen: #c3e3e3;
   --aquaGreen: #2cbeab;
+  --lightAquaGreen: #9fe8df;
   --superLightGray: #f3f8fb;
   --lightOliveFont: #758f90;
   --darkGrayFont: #646c6e;
   --mediumGray: #96a1a2;
   --darkOlive: #64746c;
   --mediumOlive: #94aca4;
+  font-family: 'Space Mono', monospace;
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Space Mono', monospace;
+
 }
 
 .App {
@@ -62,10 +65,16 @@
 }
 
 .totalBillContainer, .numOfPeopleContainer {
+  position: relative;
   margin: 1rem;
   display: flex;
   flex-direction: column;
+}
 
+.iconDiv {
+  position: absolute;
+  left: .5rem;
+  bottom: .5rem;
 }
 
 input {
@@ -73,8 +82,22 @@ input {
   padding: .5rem;
   direction: rtl;
   height: 2.5rem;
+  font-family: inherit;
+  color: var(--deepGreen);
   border: none;
   border-radius: .3rem;
+}
+
+input:focus {
+  outline: none;
+  border: solid 1px var(--lightAquaGreen);
+}
+
+/* copied and pasted directly from : https://www.codegrepper.com/code-examples/css/how+to+remove+up+and+down+arrows+from+input+type+number */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .selectTipContainer {
@@ -230,7 +253,7 @@ input {
 }
 
 .resetButton {
-  background-color: var(--lightOliveFont);
+  background-color: var(--lightDeepGreen);
   position: absolute;
   display: flex;
   justify-content: center;
