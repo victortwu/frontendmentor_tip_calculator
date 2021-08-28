@@ -19,6 +19,7 @@ function App() {
   const [totalEach, setTotalEach] = useState(0)
   const [customTip, setCustomTip] = useState(null)
   const [show, setShow] = useState(false)
+  const [zero, setZero] = useState(false)
 
 
   const calcTip = (pct) => {
@@ -37,8 +38,8 @@ function App() {
 
   const handleCustomTip =(e)=> {
       e.preventDefault()
-      const percent = customTip * .01
-      calcTip(percent)
+      const pct = customTip * .01
+      calcTip(pct)
       setShow(false)
   }
 
@@ -53,10 +54,13 @@ function App() {
     setCustomTip(null)
     setTipEach(0)
     setTotalEach(0)
+    setZero(false)
   }
 
 
   const toggleModal =  show ? 'show' : 'hide'
+  const toggleZeroClass = zero ? 'show' : 'hide'
+  const inputBorderStyle = zero ? {border: 'solid 1px red'} : {border: 'none'}
   console.log(totalBill)
   console.log(totalPeople)
   console.log(`Tip: ${tip}, Total with tip: ${total}`)
@@ -119,11 +123,17 @@ function App() {
 
 
             <div className='numOfPeopleContainer'>
-              <label htmlFor='numPpl'>Number of People</label>
-              <input ref={pplRef} onChange={(e)=> {
+              <label>Number of People</label><span className={toggleZeroClass}>Can't be zero</span>
+              <input style={inputBorderStyle} ref={pplRef} onChange={(e)=> {
                                       e.preventDefault()
-                                      setTotalPeople(e.target.value)
-                                    }} id='numPpl' type='number' min='1' max='25' placeholder='0'></input>
+                                      if(e.target.value > 0){
+                                        setTotalPeople(e.target.value)
+                                        setZero(false)
+                                      } else {
+                                        setZero(true)
+                                      }
+
+                                    }} type='number' min='1' max='25' placeholder='0'></input>
               <div className='iconDiv'>
                   <PersonIcon/>
               </div>
@@ -137,7 +147,7 @@ function App() {
 
         </main>
 
-        <div className="attribution">
+        <div className='attribution'>
             Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
             Coded by <a href="https://victor-twu-portfolio.herokuapp.com/">Victor Twu</a>.
         </div>

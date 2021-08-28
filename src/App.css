@@ -71,6 +71,13 @@
   flex-direction: column;
 }
 
+.numOfPeopleContainer > span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+}
+
 .iconDiv {
   position: absolute;
   left: .5rem;
@@ -98,6 +105,10 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.red {
+  border: solid 1px red;
 }
 
 .selectTipContainer {
