@@ -1,12 +1,8 @@
 const GrandTotal = (props) => {
 
-const backGroundColor = (props.totalPeople > 1 || props.totalBill > 0) ?
-                        {backgroundColor: 'var(--aquaGreen)'}
-                        : {backgroundColor: 'var(--lightDeepGreen)'}
+const resetButtonClass = (props.totalPeople > 1 || props.totalBill > 0) ?
+                          'resetButtonActive' : 'resetButtonInactive'
 
-console.log(props.zero)
-console.log(props.zeroBill)
-console.log(props.tip)
 return(
 
     <div className='grandTotalContainer'>
@@ -28,7 +24,7 @@ return(
               <h2>${props.totalEach.toFixed(2)}</h2>
             </div>
         </div>
-      <div style={backGroundColor} onClick={()=> props.reset()} className='resetButton'>RESET</div>
+        <div onClick={()=> props.reset()} className={resetButtonClass}>RESET</div>
 
     </div>
 

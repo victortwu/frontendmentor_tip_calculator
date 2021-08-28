@@ -12,63 +12,47 @@ function App() {
 
   const [totalBill, setTotalBill] = useState(0)
   const [totalPeople, setTotalPeople] = useState(1)
-  const [percent, setPercent] = useState(null)
-  const [tip, setTip] = useState(null)
-  const [total, setTotal] = useState(null)
   const [tipEach, setTipEach] = useState(0)
   const [totalEach, setTotalEach] = useState(0)
   const [customTip, setCustomTip] = useState(null)
+
   const [show, setShow] = useState(false)
   const [zero, setZero] = useState(false)
-  const [zeroBill, setZeroBill] = useState(true)
 
-  
 
-  const calcTip = (pct) => {
-
-    const tempTip = totalBill * pct
-    const tempTotal = totalBill * (1  + pct)
-    console.log('tempTip: ', tempTip)
-    console.log('tempTotal: ', tempTotal)
-    setTip(tempTip)
-    setTotal(tempTotal)
-    setTipEach(tempTip / totalPeople)
-    setTotalEach(tempTotal / totalPeople)
-  }
+    const calcTip = (pct) => {
+        setTipEach((totalBill * pct) / totalPeople)
+        setTotalEach((totalBill * (1  + pct)) / totalPeople)
+    }
 
 
 
-  const handleCustomTip =(e)=> {
-      e.preventDefault()
-      const pct = customTip * .01
-      calcTip(pct)
-      setShow(false)
-  }
+    const handleCustomTip =(e)=> {
+        e.preventDefault()
+        const pct = customTip * .01
+        calcTip(pct)
+        setShow(false)
+    }
 
-  const reset = () => {
-    billRef.current.value = ''
-    pplRef.current.value = ''
-    customRef.current.value = ''
-    setTotalBill(0)
-    setTotalPeople(1)
-    setTip(0)
-    setTotal(0)
-    setCustomTip(null)
-    setTipEach(0)
-    setTotalEach(0)
-    setZero(false)
-  }
+
+    const reset = () => {
+        billRef.current.value = ''
+        pplRef.current.value = ''
+        customRef.current.value = ''
+        setTotalBill(0)
+        setTotalPeople(1)
+        setCustomTip(null)
+        setTipEach(0)
+        setTotalEach(0)
+        setZero(false)
+    }
 
 
   const toggleModal =  show ? 'show' : 'hide'
   const toggleZeroClass = zero ? 'show' : 'hide'
   const inputBorderStyle = zero ? {border: 'solid 1px red'} : {border: 'none'}
-  console.log(totalBill)
-  console.log(totalPeople)
-  console.log(`Tip: ${tip}, Total with tip: ${total}`)
-  console.log(`Tip each: ${tipEach}, Total each: ${totalEach}`)
 
-  return (
+return (
     <div className="App">
 
         <div id='appTitle'>
@@ -84,8 +68,7 @@ function App() {
               <input ref={billRef} onChange={(e)=> {
                                       e.preventDefault()
                                       setTotalBill(e.target.value)
-                                      setZeroBill(false)
-                                    }} id='bill' type='number' placeholder='0' autoFocus></input>
+                                      }} id='bill' type='number' placeholder='0' autoFocus></input>
               <div className='iconDiv'>
                 <DollarIcon/>
               </div>
@@ -93,6 +76,7 @@ function App() {
 
             <div className='selectTipContainer'>
               <span className='selectTipTitle'>Select Tip %</span>
+
               <div className='percentButtonGrid'>
                     <button onClick={()=> calcTip(.05)} className='percentButton1'>5%</button>
                     <button onClick={()=> calcTip(.10)} className='percentButton2'>10%</button>
@@ -146,14 +130,12 @@ function App() {
 
           <div className='mainRight'>
             <GrandTotal
-                zeroBill={zeroBill}
                 totalPeople={totalPeople}
                 totalBill={totalBill}
-                tip={tip}
-                zero={zero}
                 tipEach={tipEach}
                 totalEach={totalEach}
-                reset={reset}/>
+                reset={reset}
+                />
           </div>
 
         </main>
